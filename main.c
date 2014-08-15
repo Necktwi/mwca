@@ -31,7 +31,7 @@ int main(int argc, char** argv) {
         int i = 0;
         for (i = 0; i < 26; i++)freq_char_count[i] = 0;
         while ((c = getc(f)) != EOF) {
-            while (c == '\n' || c == ' ' || c == ',' || c == '.') {
+            while (c == '\n' || c == '\r' || c == ' ' || c == ',' || c == '.') {
                 if (white_space_flag == 0) {
                     white_space_flag = 1;
                     word_buf[word_length] = '\0';
@@ -51,8 +51,9 @@ int main(int argc, char** argv) {
                 }
                 if (c == '\n') {
                     line_count++;
+                } else if (c == ',' || c == '.') {
+                    char_count++;
                 }
-                char_count++;
                 c = getc(f);
             }
             white_space_flag = 0;
@@ -82,7 +83,7 @@ int main(int argc, char** argv) {
         for (i = 0; i < longest_words_count; i++)
             printf("%s, ", longest_words[i]);
         printf("(%d)\n", longest_word_length);
-        printf("The most frequently used characters = %c (%d)",
+        printf("The most frequently used characters = %c (%d)\n",
                 (char) (freq_char + 97), freq_char_freq);
         fclose(f);
     } else {
