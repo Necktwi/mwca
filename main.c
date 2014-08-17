@@ -28,6 +28,10 @@ int main(int argc, char** argv) {
         int freq_char_count[26];
         int freq_char = 0;
         int freq_char_freq = 0;
+        int trail_line_index = 0;
+        int trail_line_count = 0;
+        int trail_carrier_index = 0;
+        int all_char_count = 0;
         int i = 0;
         for (i = 0; i < 26; i++)freq_char_count[i] = 0;
         while ((c = getc(f)) != EOF) {
@@ -51,8 +55,17 @@ int main(int argc, char** argv) {
                 }
                 if (c == '\n') {
                     line_count++;
+                    if (all_char_count == trail_line_index) {
+                        trail_line_count++;
+                    } else {
+                        trail_line_count = 0;
+                    }
+                    trail_line_index = all_char_count + 1;
                 } else if (c == ',' || c == '.') {
                     char_count++;
+                }
+                if (c != '\r') {
+                    all_char_count++;
                 }
                 c = getc(f);
             }
@@ -68,8 +81,12 @@ int main(int argc, char** argv) {
             word_length++;
             assert(word_length <= 100);
             char_count++;
+            all_char_count++;
         }
         line_count++;
+        if (trail_line_index == all_char_count) {
+            line_count -= trail_line_count + 1;
+        }
         for (i = 0; i < 26; i++) {
             if (freq_char_count[i] > freq_char_freq) {
                 freq_char_freq = freq_char_count[i];

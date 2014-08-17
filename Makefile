@@ -58,7 +58,7 @@ build: .build-post
 
 .build-post: .build-impl
 # Add your post 'build' code here...
-
+	chmod ug+x ${CND_ARTIFACT_PATH_${CONF}}
 
 # clean
 clean: .clean-post
