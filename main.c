@@ -30,7 +30,6 @@ int main(int argc, char** argv) {
         int freq_char_freq = 0;
         int trail_line_index = 0;
         int trail_line_count = 0;
-        int trail_carrier_index = 0;
         int all_char_count = 0;
         int i = 0;
         for (i = 0; i < 26; i++)freq_char_count[i] = 0;
